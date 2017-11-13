@@ -1,0 +1,2 @@
+# here you add the repos you don't want to sync with upstream (just the name of the repo) one per line (remove this note and remove .txt from the file name ;)
+
