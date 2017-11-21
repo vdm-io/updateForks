@@ -55,5 +55,7 @@ for gitHubUser in "${gitHubUsers[@]}"; do
 		    fi
 		done
 	done
-	notify "Just finished update of ${gitHubUser} repos."
+	# move back to script path
+	cd "${scriptPath}"
+	notifyMe "Just finished update of ${gitHubUser} repos."
 done

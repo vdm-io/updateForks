@@ -48,9 +48,9 @@ sleutel=$(head -n 1 github)
 startMessage="Getting $githubUser's repos and using $sshUser as the ssh HOST name"
 echo $startMessage
 # also inform me
-notify "${startMessage}"
+notifyMe "${startMessage}"
 # set the main length of all strings
-$mainlen="${#startMessage}"
+mainlen="${#startMessage}"
 
 # little echo tweak
 function echoTweak () {
@@ -136,7 +136,7 @@ for nr in "${!fullnames[@]}"; do
 				echo "${repoFingerPrint}${parent}.git ${branchFileName}" >> "${scriptPath}/repos"
 				echo "DONE"
 				# also inform me
-				notify "Adding ${names[$nr]}'s parent info to upstream repos list"
+				notifyMe "Adding ${names[$nr]}'s parent info to upstream repos list"
 			else
 				echo "NO PARENT FOUND!"
 			fi
@@ -149,4 +149,4 @@ done
 echo "Getting all forked repos for $githubUser is now complete"
 
 # also inform me
-notify "Getting all forked repos for $githubUser is now complete"
+notifyMe "Getting all forked repos for $githubUser is now complete"

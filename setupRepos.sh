@@ -48,8 +48,10 @@ function setForkedRepos () {
         # set upstream branch
         git remote add upstream "$4"
 
+	# move back to script path
+	cd "${scriptPath}"
 	# also inform me
-	notify "Just added $1's $3 repo."
+	notifyMe "Just added $1's $3 repo."
     fi
 }
 

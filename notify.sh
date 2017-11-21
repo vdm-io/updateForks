@@ -17,7 +17,7 @@
 #/-----------------------------------------------------------------------------------------------------------------------------/
 
 # Telegram notify
-function notify() {
+function notifyMe() {
 	# get first line
 	NOTIFY=$(head -n 1 notify)
 	# get the keys
