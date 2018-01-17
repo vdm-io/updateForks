@@ -61,13 +61,29 @@ function get () {
 	notifyMe "Just finished update of ${gitHubUser} repos."
 }
 
+# check if we have sub folders
+subdircount=$(find $DIR -maxdepth 1 -type d | wc -l)
+# if none found
+if [ $subdircount -eq 1 ]
+then
+    echo "You must first run the getRepos.sh and setupRepos.sh before you continue."
+	exit 1
+fi
+
 # go to main directory
 cd "$DIR"
 
 # check if we are targeting only one user
 if [ $# -eq 1 ] 
 then
-	get "$1"
+	if [ -d $DIR/$1 ]; then
+		# directory is set
+		get "$1"
+	else
+		# directory is not set
+		echo "$1 has not been set! Make sure to first run the getRepos.sh and setupRepos.sh before you continue."
+		exit 1
+	fi
 else
 	gitHubUsers=($(ls -d -- */))
 	for gitHubUser in "${gitHubUsers[@]}"; do

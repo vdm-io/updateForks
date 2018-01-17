@@ -55,10 +55,16 @@ function setForkedRepos () {
     fi
 }
 
-# array of repos
-readarray -t REPOS < repos
+# only run for repos have been set
+if [ -f "${scriptPath}/repos" ]; then
+	# array of repos
+	readarray -t REPOS < "${scriptPath}/repos"
 
-for update in "${REPOS[@]}"; do
-    repo=($update)
-    setForkedRepos ${repo[0]} ${repo[1]} ${repo[2]} ${repo[3]}
-done
+	for update in "${REPOS[@]}"; do
+		repo=($update)
+		setForkedRepos ${repo[0]} ${repo[1]} ${repo[2]} ${repo[3]}
+	done
+else
+	echo "You must first run the getRepos.sh before you continue."
+	exit 1
+fi
