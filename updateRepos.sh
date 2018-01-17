@@ -20,14 +20,16 @@
 scriptPath="${BASH_SOURCE%/*}"
 if [[ ! -d "$scriptPath" || "$scriptPath" == '.' ]]; then scriptPath="$PWD"; fi
 
+# keep forked repos in sync with upstream
+DIR="$HOME/VDM/REPOS"
+
 # load notify
 . "${scriptPath}/notify.sh"
 
-# keep forked repos in sync with upstream
-DIR="$HOME/VDM/REPOS"
-cd "$DIR"
-gitHubUsers=($(ls -d -- */))
-for gitHubUser in "${gitHubUsers[@]}"; do
+# get repo
+function get () {
+	# get user name
+	local gitHubUser="$1"
 	cd "$DIR/$gitHubUser"
 	echo "@ user:${gitHubUser}"
 	repos=($(ls -d -- */))
@@ -55,7 +57,23 @@ for gitHubUser in "${gitHubUsers[@]}"; do
 		    fi
 		done
 	done
-	# move back to script path
-	cd "${scriptPath}"
+	# Send notice
 	notifyMe "Just finished update of ${gitHubUser} repos."
-done
+}
+
+# go to main directory
+cd "$DIR"
+
+# check if we are targeting only one user
+if [ $# -eq 1 ] 
+then
+	get "$1"
+else
+	gitHubUsers=($(ls -d -- */))
+	for gitHubUser in "${gitHubUsers[@]}"; do
+		get "$gitHubUser"
+	done
+fi
+
+# move back to script path
+cd "${scriptPath}"
