@@ -20,11 +20,16 @@
 scriptPath="${BASH_SOURCE%/*}"
 if [[ ! -d "$scriptPath" || "$scriptPath" == '.' ]]; then scriptPath="$PWD"; fi
 
-# keep forked repos in sync with upstream
-DIR="$HOME/VDM/REPOS"
-
 # load notify
 . "${scriptPath}/notify.sh"
+
+# go to script path
+cd "${scriptPath}"
+# go one dir up
+cd ../
+
+# keep forked repos in sync with upstream
+DIR="$PWD/VDM/REPOS"
 
 # get repo
 function get () {

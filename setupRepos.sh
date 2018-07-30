@@ -23,8 +23,13 @@ if [[ ! -d "$scriptPath" || "$scriptPath" == '.' ]]; then scriptPath="$PWD"; fi
 # load notify
 . "${scriptPath}/notify.sh"
 
+# go to script path
+cd "${scriptPath}"
+# go one dir up
+cd ../
+
 # go to repositories directory
-DIR="$HOME/VDM/REPOS"
+DIR="$PWD/VDM/REPOS"
 if [ ! -d "$DIR" ] 
     then
     mkdir -p "$DIR"
